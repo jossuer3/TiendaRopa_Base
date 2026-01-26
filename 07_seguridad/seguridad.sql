@@ -36,3 +36,21 @@ GRANT 'rol_vendedor' TO 'vendedor_db'@'localhost';
 SET DEFAULT ROLE ALL TO
 'admin_db'@'localhost',
 'vendedor_db'@'localhost';
+
+-- =========================================
+-- PREVENCIÓN DE SQL INJECTION
+-- USO DE PROCEDIMIENTOS ALMACENADOS
+-- =========================================
+
+DELIMITER //
+
+CREATE PROCEDURE buscar_cliente_seguro (
+    IN p_cedula VARCHAR(10)
+)
+BEGIN
+    SELECT id_cliente, nombre, email, direccion
+    FROM clientes
+    WHERE cedula = p_cedula;
+END//
+
+DELIMITER ;
