@@ -72,7 +72,7 @@ CREATE TABLE detalle_ventas (
 -- DATOS DE PRUEBA
 -- =========================================
 
-INSERT INTO usuarios(nombre,email,password_hash,rol) VALUES
+insert into usuarios(nombre,email,password_hash,rol) values 
 ('Juan','admin@tienda.com','123456','admin'),
 ('Pepe','pepe@cliente.com','123456','vendedor'),
 ('Lolita','lola@tienda.com','654321','admin'),
@@ -82,55 +82,55 @@ INSERT INTO usuarios(nombre,email,password_hash,rol) VALUES
 ('Jose','jose@tienda.com','jose321','admin'),
 ('Sofia','sofia@tienda.com','sofia999','vendedor');
 
-INSERT INTO clientes VALUES
-(NULL,'2100000000','Carlos Peralta','0999999999','carlos@gmail.com','Nueva Loja','2025-12-01'),
-(NULL,'1712000000','Pablo Arturo','0999999999','pablito@gmail.com','Real Audiencia','2026-02-12'),
-(NULL,'1030000000','Martina Popus','0987654321','popusm@gmail.com','Los cedros','2025-11-30'),
-(NULL,'1100000001','Andrea Molina','0981111111','andrea@gmail.com','Centro','2025-10-10'),
-(NULL,'1100000002','Luis Torres','0982222222','luis@gmail.com','San Pedro','2025-10-12'),
-(NULL,'1100000003','Martha Ruiz','0983333333','martha@gmail.com','El Dorado','2025-11-01'),
-(NULL,'1100000004','Kevin Lopez','0984444444','kevin@gmail.com','La Pradera','2026-01-05'),
-(NULL,'1100000005','Diana Salas','0985555555','diana@gmail.com','El Valle','2026-02-01');
+insert into clientes(cedula,nombre,telefono,email,direccion,fecha_registro) values
+('2100000000','Carlos Peralta','0999999999','carlos@gmail.com','Nueva Loja','2025-12-01'),
+('1712000000','Pablo Arturo','0999999999','pablito@gmail.com','Real Audiencia','2026-02-12'), 
+('1030000000','Martina Popus','0987654321','popusm@gmail.com','Los cedros','2025-11-30'),
+('1100000001','Andrea Molina','0981111111','andrea@gmail.com','Centro','2025-10-10'),
+('1100000002','Luis Torres','0982222222','luis@gmail.com','San Pedro','2025-10-12'),
+('1100000003','Martha Ruiz','0983333333','martha@gmail.com','El Dorado','2025-11-01'),
+('1100000004','Kevin Lopez','0984444444','kevin@gmail.com','La Pradera','2026-01-05'),
+('1100000005','Diana Salas','0985555555','diana@gmail.com','El Valle','2026-02-01');
 
-INSERT INTO categorias VALUES
-(NULL,'Ropa Hombre','Camiseta de hombre talla L'),
-(NULL,'Ropa Mujer','Pantalon de mujer talla 12'),
-(NULL,'Ropa Niña','Disfraz mickey mouse'),
-(NULL,'Calzado Hombre','Zapatos casuales para hombre'),
-(NULL,'Calzado Mujer','Tacones y sandalias'),
-(NULL,'Accesorios','Cinturones y carteras'),
-(NULL,'Ropa Deportiva','Prendas deportivas'),
-(NULL,'Ropa Infantil','Ropa para niños');
+insert into categorias(nombre,descripcion) values
+('Ropa Hombre','Camiseta de hombre talla L'),
+('Ropa Mujer','Pantalon de mujer talla 12'),
+('Ropa Niña','Disfraz mickey mouse'),
+('Calzado Hombre','Zapatos casuales para hombre'),
+('Calzado Mujer','Tacones y sandalias'),
+('Accesorios','Cinturones y carteras'),
+('Ropa Deportiva','Prendas deportivas'),
+('Ropa Infantil','Ropa para niños');
 
-INSERT INTO productos VALUES
-(NULL,'Camisa Formal','Camisa para ocasiones formales',35.00,50,'m',1),
-(NULL,'Vestido de gala','Vestido listo para un evento de negocios',45.90,15,'l',2),
-(NULL,'Terno de baño','Prenda de vestir para actividades acuáticas',25.16,40,'m',7),
-(NULL,'Zapato Casual','Zapato cómodo para uso diario',55.00,30,'xs',5),
-(NULL,'Tacón Elegante','Tacón alto para eventos',60.50,20,'xl',5),
-(NULL,'Cinturón Cuero','Cinturón de cuero genuino',18.75,100,'m',6),
-(NULL,'Conjunto Deportivo','Ropa para entrenar',35.90,25,'m',7),
-(NULL,'Chaqueta Infantil','Chaqueta para clima frío',28.40,40,'s',8);
+insert into productos(nombre,descripcion,precio,stock,talla,id_categoria) values
+('Camisa Formal', 'Camisa para ocasiones formales', 35.00, 50, 'M', 1),
+('Vestido de gala', 'Vestido listo para un evento de negocios', 45.90, 15, 'L', 2),
+('Terno de baño','Prenda de vestir para quienes practican actividades acuáticas',25.16,40,'M',7),
+('Zapato Casual','Zapato cómodo para uso diario',55.00,30,'xs',5),
+('Tacón Elegante','Tacón alto para eventos',60.50,20,'XL',5),
+('Cinturón Cuero','Cinturón de cuero genuino',18.75,100,'M',6),
+('Conjunto Deportivo','Ropa para entrenar',35.90,25,'M',7),
+('Chaqueta Infantil','Chaqueta para clima frío',28.40,40,'S',8);
 
-INSERT INTO ventas VALUES
-(NULL,'2025-01-15 10:30:00',80.00,1,2),
-(NULL,NOW(),45.00,2,2),
-(NULL,'2025-12-01 09:46:00',66.08,3,3),
-(NULL,'2025-11-15 11:20:00',55.00,4,4),
-(NULL,'2025-11-20 16:45:00',121.00,5,5),
-(NULL,'2026-01-10 09:10:00',18.75,6,6),
-(NULL,'2026-01-22 14:30:00',71.80,7,7),
-(NULL,NOW(),28.40,8,8);
+insert into ventas (fecha_venta, total, id_cliente, id_usuario) VALUES 
+('2025-01-15 10:30:00', 80.00, 1, 2),
+(NOW(), 45.00, 2, 2),('2025-12-01 09:46:00',66.08,3,3),
+('2025-11-15 11:20:00', 55.00, 4, 4),
+('2025-11-20 16:45:00', 121.00, 5, 5),
+('2026-01-10 09:10:00', 18.75, 6, 6),
+('2026-01-22 14:30:00', 71.80, 7, 7),
+(NOW(), 28.40, 8, 8);
 
-INSERT INTO detalle_ventas VALUES
-(NULL,8,8,3,28.40,85.20),
-(NULL,2,2,4,45.90,183.60),
-(NULL,3,3,3,25.16,75.48),
-(NULL,1,1,1,35.00,35.00),
-(NULL,2,2,2,45.90,91.80),
-(NULL,3,3,1,25.16,25.16),
-(NULL,4,4,1,55.00,55.00),
-(NULL,5,6,3,18.75,56.25);
+insert into detalle_ventas(id_venta, id_producto, cantidad, precio_unitario, subtotal) values
+(8, 8, 3, 28.40, 85.20),
+(2, 2, 4, 45.90, 183.6),
+(3, 3, 3, 25.16,75.48),
+(1, 1, 1, 35.00, 35.00),
+(2, 2, 2, 45.90, 91.80),
+(3, 3, 1, 25.16, 25.16),
+(4, 4, 1, 55.00, 55.00),
+(5, 6, 3, 18.75, 56.25);
+
 
 -- =========================================
 -- VISTA
@@ -228,3 +228,22 @@ GRANT 'rol_admin' TO 'admin_db'@'localhost';
 GRANT 'rol_vendedor' TO 'vendedor_db'@'localhost';
 
 SET DEFAULT ROLE ALL TO 'admin_db'@'localhost','vendedor_db'@'localhost';
+
+-- =========================================
+-- PREVENCIÓN DE SQL INJECTION
+-- USO DE PROCEDIMIENTOS ALMACENADOS
+-- =========================================
+
+DELIMITER //
+
+CREATE PROCEDURE buscar_cliente_seguro (
+    IN p_cedula VARCHAR(10)
+)
+BEGIN
+    SELECT id_cliente, nombre, email, direccion
+    FROM clientes
+    WHERE cedula = p_cedula;
+END//
+
+DELIMITER ;
+
