@@ -10,49 +10,27 @@
 -- INICIO DE TRANSACCIÓN
 -- (Atomicidad)
 -- ========================
-START TRANSACTION;
+CREATE PROCEDURE registrar_venta()
+BEGIN
+    DECLARE filas INT;
 
--- ========================
--- REGISTRO DE LA VENTA
--- ========================
-INSERT INTO ventas (id_cliente, id_usuario, fecha_venta, total)
-VALUES (1, 2, NOW(), 50.00);
+    START TRANSACTION;
 
--- Guardar el ID de la venta
-SET @id_venta = LAST_INSERT_ID();
+    INSERT INTO ventas VALUES (NULL,NOW(),50.00,1,2);
+    SET @id_venta = LAST_INSERT_ID();
 
--- ========================
--- REGISTRO DEL DETALLE
--- ========================
-INSERT INTO detalle_ventas (
-    id_venta,
-    id_producto,
-    cantidad,
-    precio_unitario,
-    subtotal
-)
-VALUES (@id_venta, 3, 2, 25.00, 50.00);
+    UPDATE productos
+    SET stock = stock - 2
+    WHERE id_producto = 3 AND stock >= 2;
 
--- ========================
--- ACTUALIZACIÓN DE STOCK
--- (Consistencia)
--- ========================
-UPDATE productos
-SET stock = stock - 2
-WHERE id_producto = 3
-  AND stock >= 2;
+    SET filas = ROW_COUNT();
 
--- ========================
--- VALIDACIÓN DE STOCK
--- Si no se actualizó el producto,
--- se cancela toda la transacción
--- ========================
-IF ROW_COUNT() = 0 THEN
-    ROLLBACK;
-END IF;
+    IF filas = 0 THEN
+        ROLLBACK;
+    ELSE
+        INSERT INTO detalle_ventas VALUES (NULL,@id_venta,3,2,25.00,50.00);
+        COMMIT;
+    END IF;
+END//
 
--- ========================
--- CONFIRMACIÓN DE TRANSACCIÓN
--- (Durabilidad)
--- ========================
-COMMIT;
+DELIMITER ;
