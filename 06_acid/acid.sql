@@ -30,7 +30,9 @@ BEGIN
 
     -- Inserta el registro de la venta
     -- NULL permite que el id de la venta sea autoincremental
-    INSERT INTO ventas VALUES (NULL, NOW(), 50.00, 1, 2);
+    INSERT INTO ventas (fecha_venta, total, id_cliente, id_usuario)
+    VALUES (NOW(), 50.00, 1, 2);
+
 
     -- Obtiene el ID generado de la venta recién insertada
     -- Se usará para relacionar el detalle de la venta
@@ -54,11 +56,12 @@ BEGIN
     ELSE
         -- Inserta el detalle de la venta
         -- Relaciona la venta con el producto vendido
-        INSERT INTO detalle_ventas 
-        VALUES (NULL, @id_venta, 3, 2, 25.00, 50.00);
+          INSERT INTO detalle_ventas (id_venta, id_producto, cantidad, precio_unitario, subtotal)
+           VALUES (@id_venta, 3, 2, 25.00, 50.00);
 
         -- Confirma definitivamente la transacción
         -- Los datos quedan guardados aun si ocurre un fallo (Durabilidad - ACID)
+        
         COMMIT;
     END IF;
 END//
@@ -66,3 +69,10 @@ END//
 -- Se restaura el delimitador original
 DELIMITER ;
 
+SELECT id_producto, nombre, stock FROM productos WHERE id_producto = 3;
+SELECT * FROM ventas;
+SELECT * FROM detalle_ventas;
+
+UPDATE productos SET stock = 8 WHERE id_producto = 3;
+
+CALL registrar_venta();
