@@ -143,6 +143,17 @@ JOIN clientes c ON v.id_cliente = c.id_cliente
 JOIN usuarios u ON v.id_usuario = u.id_usuario;
 
 -- =========================================
+-- ÍNDICES
+-- =========================================
+
+CREATE INDEX idx_ventas_cliente ON ventas(id_cliente);
+CREATE INDEX idx_ventas_usuario ON ventas(id_usuario);
+
+CREATE INDEX idx_detalle_producto ON detalle_ventas(id_producto);
+CREATE INDEX idx_productos_categoria ON productos(id_categoria);
+
+
+-- =========================================
 -- AUDITORIA
 -- =========================================
 
@@ -181,13 +192,19 @@ END//
 -- PROCEDIMIENTO (ACID)
 -- =========================================
 
+DELIMITER //
 CREATE PROCEDURE registrar_venta()
 BEGIN
+
     DECLARE filas INT;
+
+    SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
     START TRANSACTION;
 
-    INSERT INTO ventas VALUES (NULL,NOW(),50.00,1,2);
+    INSERT INTO ventas (fecha_venta, total, id_cliente, id_usuario)
+    VALUES (NOW(), 50.00, 1, 2);
+
     SET @id_venta = LAST_INSERT_ID();
 
     UPDATE productos
@@ -197,9 +214,13 @@ BEGIN
     SET filas = ROW_COUNT();
 
     IF filas = 0 THEN
+
         ROLLBACK;
     ELSE
-        INSERT INTO detalle_ventas VALUES (NULL,@id_venta,3,2,25.00,50.00);
+
+          INSERT INTO detalle_ventas (id_venta, id_producto, cantidad, precio_unitario, subtotal)
+           VALUES (@id_venta, 3, 2, 25.00, 50.00);
+
         COMMIT;
     END IF;
 END//
