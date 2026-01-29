@@ -203,20 +203,6 @@ Cada carpeta contiene los scripts SQL necesarios para demostrar los distintos as
 
 ---
 
-## Pruebas del Sistema
-
-### Pruebas de Carga
-
-* Simulan múltiples usuarios realizando operaciones simultáneamente.
-* Evalúan la estabilidad y el rendimiento del sistema.
-
-### Pruebas de Estrés
-
-* Somete al sistema a condiciones extremas.
-* Permite identificar límites y posibles fallos.
-
----
-
 ## Auditoría del Sistema
 
 * Implementación de triggers de auditoría.
